@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
 import { ArrowRight, Download, Terminal, Copy, Check, Code } from "lucide-react";
-import { PERSONAL_INFO } from "../app/data.ts";
+import { PERSONAL_INFO } from "../app/data";
 
 interface HomeProps {
   onDownloadResume: () => void;

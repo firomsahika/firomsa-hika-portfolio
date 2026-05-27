@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "motion/react";
 import { User, ShieldCheck, HeartHandshake, Award, Compass, GraduationCap, Sparkles } from "lucide-react";
-import { PERSONAL_INFO, LEADERSHIP } from "../app/data.ts";
+import { PERSONAL_INFO, LEADERSHIP } from "../app/data";
 
 export default function About() {
   const stats = [

@@ -19,7 +19,7 @@ import {
   Sun,
   Moon
 } from "lucide-react";
-import { PERSONAL_INFO } from "../app/data.ts";
+import { PERSONAL_INFO } from "../app/data";
 
 interface HeaderProps {
   activeSection: string;

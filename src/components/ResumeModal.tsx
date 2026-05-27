@@ -6,7 +6,7 @@
 import React, { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { X, Printer, Copy, FileText, Check, Phone, Mail, MapPin, Github, Linkedin, Calendar, GraduationCap } from "lucide-react";
-import { PERSONAL_INFO, WORK_EXPERIENCE, PROJECTS, EDUCATION, LEADERSHIP } from "../app/data.ts";
+import { PERSONAL_INFO, WORK_EXPERIENCE, PROJECTS, EDUCATION, LEADERSHIP } from "../app/data";
 
 interface ResumeModalProps {
   isOpen: boolean;

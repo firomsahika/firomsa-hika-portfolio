@@ -1,9 +1,6 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
 
-import { ProjectType, ExperienceType, SkillCategoryType } from "./types";
+
+import { ProjectType, ExperienceType, SkillCategoryType } from "../types";
 
 export const PERSONAL_INFO = {
   name: "Firomsa Hika",

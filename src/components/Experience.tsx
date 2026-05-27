@@ -16,7 +16,7 @@ import {
   GraduationCap,
   ExternalLink
 } from "lucide-react";
-import { WORK_EXPERIENCE } from "../app/data.ts";
+import { WORK_EXPERIENCE } from "../app/data";
 
 export default function Experience() {
   const [selectedExp, setSelectedExp] = useState<string>(WORK_EXPERIENCE[0].id);

@@ -16,7 +16,7 @@ import {
   Cpu as CpuIcon,
   Play
 } from "lucide-react";
-import { SKILL_CATEGORIES } from "../app/data.ts";
+import { SKILL_CATEGORIES } from "../app/data";
 
 // Type-safe icon mapper to avoid dynamic string import errors
 const getCategoryIcon = (iconName: string) => {

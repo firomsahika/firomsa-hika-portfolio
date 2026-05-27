@@ -17,7 +17,7 @@ import {
   Linkedin,
   MessageSquare
 } from "lucide-react";
-import { PERSONAL_INFO } from "../app/data.ts";
+import { PERSONAL_INFO } from "../app/data";
 
 export default function Contact() {
   const [formData, setFormData] = useState({

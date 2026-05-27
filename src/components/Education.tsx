@@ -14,7 +14,7 @@ import {
   Library,
   BookOpen
 } from "lucide-react";
-import { EDUCATION } from "../app/data.ts";
+import { EDUCATION } from "../app/data";
 
 export default function Education() {
   return (

@@ -19,7 +19,7 @@ import {
   Home,
   Palette
 } from "lucide-react";
-import { PROJECTS } from "../app/data.ts";
+import { PROJECTS } from "../app/data";
 import { ProjectType } from "../types";
 
 export default function Projects() {
