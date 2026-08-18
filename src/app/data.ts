@@ -59,6 +59,22 @@ export const SKILL_CATEGORIES: SkillCategoryType[] = [
 
 export const PROJECTS: ProjectType[] = [
   {
+    id: "mijuu technologies",
+    title: "Mijuu Technologies",
+    role: "Frontend Developer",
+    url: "https://mijuu-technologies.vercel.app/",
+    githubUrl: "https://github.com/firomsahika/mijuu-technologies",
+    description: "Mijuu Technologies is a digital agency engineering high-performance websites, custom web and mobile applications, AI automation workflows, and modern UI/UX design.",    highlights: [
+     "Engineered and deployed a modern, high-converting agency platform showcasing Mijuu Technologies' software engineering, AI automation, and digital services.",
+    "Delivered a lightning-fast user experience using Next.js App Router and Tailwind CSS, featuring smooth animations and dark-mode aesthetic components.",
+    "Architected an intuitive, minimalist UI/UX layout optimized for client conversion, service discovery, and seamless contact workflows.",
+    "Utilized Next.js dynamic hydration and client-side performance optimizations to achieve instant page loads and responsive design across all devices."
+    ],
+    tags: ["Next.js", "React", "Typescript ", "Tailwind CSS"],
+    category: "frontend",
+    featured: true
+  },
+  {
     id: "sersocaa",
     title: "SERSOCAA Verification System",
     role: "Full-Stack Developer",
