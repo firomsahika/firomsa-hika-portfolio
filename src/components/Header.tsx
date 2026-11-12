@@ -1,55 +1,37 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+"use client";
 
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { 
-  Home, 
-  User, 
-  Code, 
-  Briefcase, 
-  GraduationCap, 
-  Layers, 
-  Mail, 
-  Download,
-  Menu,
-  X,
-  Sun,
-  Moon
-} from "lucide-react";
+import { Download, Menu, X, ArrowUpRight } from "lucide-react";
 import { PERSONAL_INFO } from "../app/data";
 
 interface HeaderProps {
   activeSection: string;
   setActiveSection: (section: string) => void;
   onDownloadResume: () => void;
+  onOpenResumeModal: () => void;
 }
 
-export default function Header({ activeSection, setActiveSection, onDownloadResume }: HeaderProps) {
+export default function Header({
+  activeSection,
+  setActiveSection,
+  onDownloadResume,
+  onOpenResumeModal,
+}: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [glowIntensity, setGlowIntensity] = useState("rgba(59, 130, 246, 0.15)");
 
-  // Detect scroll to style header
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 20);
 
-      // Automatically update active section based on scroll position
-      const sections = ["home", "about", "skills", "projects", "experience", "education", "contact"];
+      const sections = ["experience", "projects", "skills", "education", "contact"];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const top = element.offsetTop;
-          const height = element.offsetHeight;
+        const el = document.getElementById(section);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
           if (scrollPosition >= top && scrollPosition < top + height) {
             setActiveSection(section);
             break;
@@ -63,13 +45,11 @@ export default function Header({ activeSection, setActiveSection, onDownloadResu
   }, [setActiveSection]);
 
   const navItems = [
-    { id: "home", label: "Home", icon: Home },
-    { id: "about", label: "About", icon: User },
-    { id: "skills", label: "Skills", icon: Code },
-    { id: "projects", label: "Projects", icon: Layers },
-    { id: "experience", label: "Experience", icon: Briefcase },
-    { id: "education", label: "Education", icon: GraduationCap },
-    { id: "contact", label: "Contact", icon: Mail },
+    { id: "experience", label: "Experience" },
+    { id: "projects", label: "Projects" },
+    { id: "skills", label: "Skills" },
+    { id: "education", label: "Education" },
+    { id: "contact", label: "Contact" },
   ];
 
   const handleNavClick = (id: string) => {
@@ -82,143 +62,121 @@ export default function Header({ activeSection, setActiveSection, onDownloadResu
   };
 
   return (
-    <>
-      <header 
-        id="navbar-header"
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-          scrolled ? "py-3 bg-slate-950/80 backdrop-blur-xl border-b border-slate-900" : "py-6 bg-transparent"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          
-          {/* Logo */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center gap-1 cursor-pointer"
-            onClick={() => handleNavClick("home")}
-          >
-            <div className="relative group">
-              <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 to-sky-400 opacity-60 blur-sm group-hover:opacity-100 transition duration-500"></div>
-              <div className="relative px-3 py-1.5 bg-slate-950 rounded-lg border border-slate-800 text-lg font-bold tracking-wider text-white">
-                FH<span className="text-blue-500">.</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Desktop Navigation Pill (As requested in image layout) */}
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="hidden lg:flex items-center justify-center"
-          >
-            <nav className="relative h-12 px-2.5 rounded-full bg-slate-900/60 border border-slate-800/80 backdrop-blur-md shadow-xl flex items-center gap-1">
-              {navItems.map((item) => {
-                const Icon = item.icon;
-                const isActive = activeSection === item.id;
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => handleNavClick(item.id)}
-                    className={`relative px-4 h-8 flex items-center gap-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
-                      isActive 
-                        ? "text-white" 
-                        : "text-slate-400 hover:text-white"
-                    }`}
-                  >
-                    {isActive && (
-                      <motion.div
-                        layoutId="activeTabGlow"
-                        className="absolute inset-0 bg-blue-600 rounded-full shadow-lg shadow-blue-500/40 border border-blue-500/30 -z-10"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                    <Icon className="w-3.5 h-3.5" />
-                    <span>{item.label}</span>
-                  </button>
-                );
-              })}
-            </nav>
-          </motion.div>
-
-          {/* Right Action Widgets */}
-          <div className="hidden lg:flex items-center gap-4">
-            {/* Visual Indicator of online availability */}
-            <div className="flex items-center gap-2 px-3 py-1 bg-slate-900/85 border border-slate-800/60 rounded-full text-[10px] text-emerald-400 font-semibold tracking-wider uppercase">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Available</span>
-            </div>
-
-            {/* Resume Button */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={onDownloadResume}
-              className="relative group overflow-hidden px-5 py-2 bg-gradient-to-r from-blue-600 to-sky-500 text-white rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-blue-500/25 border border-blue-400/20"
-            >
-              <Download className="w-3.5 h-3.5 group-hover:translate-y-0.5 duration-300" />
-              <span>Resume</span>
-            </motion.button>
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-black/95 backdrop-blur-md border-b border-neutral-800 py-3.5"
+          : "bg-black/60 backdrop-blur-sm border-b border-neutral-900/60 py-5"
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        {/* Brand / Name */}
+        <button
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            setActiveSection("home");
+          }}
+          className="text-left group cursor-pointer focus:outline-none"
+        >
+          <div className="font-mono text-sm font-semibold tracking-wider text-white uppercase group-hover:text-neutral-300 transition-colors">
+            {PERSONAL_INFO.displayName}
           </div>
-
-          {/* Tablet & Mobile Menu Buttons */}
-          <div className="flex lg:hidden items-center gap-3">
-            <button
-              onClick={onDownloadResume}
-              className="px-3.5 py-1.5 bg-blue-600 text-white rounded-full text-xs font-extrabold shadow-md flex items-center gap-1.5"
-            >
-              <Download className="w-3 h-3" />
-              <span>Resume</span>
-            </button>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1.5 text-slate-400 hover:text-white bg-slate-900/80 rounded-lg border border-slate-800/80"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+          <div className="font-mono text-[11px] text-neutral-400 tracking-tight">
+            Senior Full-Stack Software Engineer
           </div>
+        </button>
 
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-1 font-mono text-xs">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => handleNavClick(item.id)}
+                className={`px-3 py-1.5 rounded transition-colors ${
+                  isActive
+                    ? "text-white bg-neutral-900 border border-neutral-700"
+                    : "text-neutral-400 hover:text-white hover:bg-neutral-900/50"
+                }`}
+              >
+                {item.label}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Action Buttons */}
+        <div className="hidden sm:flex items-center gap-2.5">
+          <button
+            onClick={onOpenResumeModal}
+            className="px-3 py-1.5 rounded border border-neutral-700 hover:border-neutral-500 text-neutral-300 hover:text-white font-mono text-xs transition-colors flex items-center gap-1.5 bg-neutral-950"
+          >
+            <span>Resume</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </button>
+          <button
+            onClick={onDownloadResume}
+            className="px-3 py-1.5 rounded bg-white hover:bg-neutral-200 text-black font-mono text-xs font-medium transition-colors flex items-center gap-1.5"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>PDF</span>
+          </button>
         </div>
-      </header>
 
-      {/* Mobile Menu Panel */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed top-16 left-0 w-full z-40 lg:hidden px-4 py-3"
+        {/* Mobile Menu Toggle */}
+        <div className="flex sm:hidden items-center gap-2">
+          <button
+            onClick={onDownloadResume}
+            className="p-1.5 rounded border border-neutral-800 text-neutral-300 hover:text-white"
+            aria-label="Download Resume"
           >
-            <div className="bg-slate-950/95 backdrop-blur-2xl border border-slate-900/90 rounded-2xl p-5 shadow-2xl">
-              <nav className="flex flex-col gap-2">
-                {navItems.map((item) => {
-                  const Icon = item.icon;
-                  const isActive = activeSection === item.id;
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={() => handleNavClick(item.id)}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-xl text-left text-sm font-semibold tracking-wide transition-all ${
-                        isActive 
-                          ? "bg-blue-600/20 border border-blue-500/30 text-white" 
-                          : "text-slate-400 hover:text-white hover:bg-slate-900/50"
-                      }`}
-                    >
-                      <Icon className={`w-4 h-4 ${isActive ? "text-blue-400" : "text-slate-500"}`} />
-                      <span>{item.label}</span>
-                    </button>
-                  );
-                })}
-              </nav>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+            <Download className="w-4 h-4" />
+          </button>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-1.5 rounded border border-neutral-800 text-neutral-300 hover:text-white"
+            aria-label="Toggle Menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Dropdown */}
+      {mobileMenuOpen && (
+        <div className="sm:hidden bg-neutral-950 border-b border-neutral-800 px-4 pt-3 pb-5 mt-3 space-y-1 font-mono text-xs">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => handleNavClick(item.id)}
+              className="w-full text-left py-2 px-3 text-neutral-300 hover:text-white hover:bg-neutral-900 rounded"
+            >
+              {item.label}
+            </button>
+          ))}
+          <div className="pt-3 border-t border-neutral-800 flex gap-2">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenResumeModal();
+              }}
+              className="flex-1 py-2 text-center rounded border border-neutral-700 text-neutral-200 font-mono text-xs"
+            >
+              View Resume
+            </button>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onDownloadResume();
+              }}
+              className="flex-1 py-2 text-center rounded bg-white text-black font-mono text-xs font-medium"
+            >
+              Download PDF
+            </button>
+          </div>
+        </div>
+      )}
+    </header>
   );
 }

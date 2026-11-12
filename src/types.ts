@@ -1,41 +1,30 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * Core type definitions for Firomsa Hika Telila's Portfolio
+ * Strictly aligned with resume specification.
  */
 
 export interface ProjectType {
   id: string;
   title: string;
-  role: string;
-  url?: string;
+  subtitle: string;
+  url: string;
+  displayUrl: string;
   githubUrl?: string;
-  description: string;
-  highlights: string[];
-  tags: string[];
-  category: "fullstack" | "frontend" | "backend";
-  featured?: boolean;
+  techStack: string[];
+  points: string[];
 }
 
 export interface ExperienceType {
   id: string;
   company: string;
-  role: string;
   location: string;
+  role: string;
   period: string;
-  category: "internship" | "leadership" | "certificate";
-  description: string[];
-  technologies?: string[];
-  link?: string;
+  isCurrent?: boolean;
+  points: string[];
 }
 
 export interface SkillCategoryType {
-  title: string;
-  icon: string; // Lucide icon reference name
+  category: string;
   skills: string[];
-  glowColor: string; // Tailwind glow class definition
-}
-
-export interface CourseType {
-  name: string;
-  code?: string;
 }

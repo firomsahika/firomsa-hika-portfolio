@@ -1,211 +1,138 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+"use client";
 
 import React, { useState } from "react";
-import { motion } from "motion/react";
-import { 
-  Briefcase, 
-  Calendar, 
-  MapPin, 
-  ChevronRight, 
-  Sparkles, 
-  Trophy,
-  Cpu,
-  GraduationCap,
-  ExternalLink
-} from "lucide-react";
-import { WORK_EXPERIENCE } from "../app/data";
+import { Briefcase, Calendar, MapPin, ChevronRight, Check } from "lucide-react";
+import { PROFESSIONAL_EXPERIENCE } from "../app/data";
 
 export default function Experience() {
-  const [selectedExp, setSelectedExp] = useState<string>(WORK_EXPERIENCE[0].id);
+  const [selectedId, setSelectedId] = useState<string>(PROFESSIONAL_EXPERIENCE[0].id);
 
-  // Icon type mapping helper
-  const getExperienceIcon = (cat: string) => {
-    switch (cat) {
-      case "internship":
-        return Cpu;
-      case "certificate":
-        return Trophy;
-      default:
-        return Briefcase;
-    }
-  };
+  const selectedExp = PROFESSIONAL_EXPERIENCE.find((exp) => exp.id === selectedId) || PROFESSIONAL_EXPERIENCE[0];
 
   return (
-    <section id="experience" className="relative py-24 bg-slate-950/20 border-t border-slate-900 overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute top-1/2 right-1/10 w-80 h-80 bg-blue-600/5 rounded-full blur-[110px] pointer-events-none" />
-      <div className="absolute bottom-5 left-5 w-80 h-80 bg-indigo-600/5 rounded-full blur-[100px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="experience" className="py-20 border-b border-neutral-900">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Heading */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-4">
-            <Briefcase className="w-3.5 h-3.5" />
-            <span>Employment Timeline</span>
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
-            Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Industry Experience</span>
-          </h2>
-          <p className="text-slate-400 max-w-2xl mx-auto font-medium text-sm sm:text-base leading-relaxed">
-            I have completed active internships and developmental bootcamps, deploying microservices for government agencies and optimizing frontend load-speeds for plc organizations.
-          </p>
-          <div className="h-1.5 w-24 bg-gradient-to-r from-blue-600 to-indigo-400 rounded-full mx-auto mt-6" />
+        {/* Section Header */}
+        <div className="flex items-center gap-3 mb-8 font-mono text-xs text-neutral-400">
+          <span className="text-white font-semibold">// 02</span>
+          <span className="text-neutral-600">/</span>
+          <span className="uppercase tracking-wider">Professional Experience</span>
         </div>
 
-        {/* Timeline Columns: Nav on Left, detailed Content on Right */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2">
+              Engineering History & Stints
+            </h2>
+            <p className="text-sm text-neutral-400 max-w-2xl font-mono">
+              5 verified roles across distributed engineering teams, backend microservices, QA debugging, and AI code evaluation.
+            </p>
+          </div>
+        </div>
+
+        {/* Desktop Split View / Mobile Stack */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Navigation Controls (4 cols on lg, full width on mobile) */}
-          <div className="lg:col-span-4 flex flex-col gap-3">
-            <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-4 mb-1">
-              Select Milestones
-            </h3>
-            <div className="space-y-2.5">
-              {WORK_EXPERIENCE.map((exp) => {
-                const IsSelected = selectedExp === exp.id;
-                const ExpIcon = getExperienceIcon(exp.category);
-                return (
-                  <button
-                    key={exp.id}
-                    onClick={() => setSelectedExp(exp.id)}
-                    className={`w-full text-left p-4.5 rounded-xl border transition-all duration-300 relative overflow-hidden group ${
-                      IsSelected
-                        ? "bg-blue-600/15 border-blue-500/40 text-white shadow-lg shadow-blue-500/5"
-                        : "bg-slate-900/30 border-slate-800/80 text-slate-400 hover:bg-slate-900/60 hover:text-white hover:border-slate-700"
-                    }`}
-                  >
-                    {/* Tiny glowing bar left */}
-                    {IsSelected && (
-                      <motion.div
-                        layoutId="activeTimelineGlowBar"
-                        className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-sky-400"
-                      />
-                    )}
-
-                    <div className="flex items-center gap-4.5 relative z-10">
-                      {/* Circle representation */}
-                      <div className={`p-2.5 rounded-xl border duration-300 ${
-                        IsSelected 
-                          ? "bg-blue-600/20 text-blue-400 border-blue-500/30" 
-                          : "bg-slate-950 text-slate-500 border-slate-850 group-hover:text-slate-350"
-                      }`}>
-                        <ExpIcon className="w-4 h-4" />
-                      </div>
-                      
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-bold tracking-wide truncate">
-                          {exp.company === "CSEC-ASTU Advanced FullStack Bootcamp" ? "CSEC-ASTU Bootcamp" : exp.company}
-                        </h4>
-                        <span className="text-xs text-slate-500 group-hover:text-slate-400 duration-300">
-                          {exp.period}
-                        </span>
-                      </div>
-
-                      <ChevronRight className={`w-4 h-4 text-slate-600 duration-300 ${IsSelected ? "translate-x-1 text-blue-400" : ""}`} />
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-            
-            {/* Download summary hint card */}
-            <div className="p-5 rounded-2xl bg-slate-900/20 border border-slate-800/60 mt-4 text-center">
-              <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-widest block mb-2">
-                ● Certification Verified
-              </span>
-              <p className="text-slate-400 text-xs font-light leading-relaxed">
-                ASTU CS engineering bootcamps and Ozone certification credentials available on request.
-              </p>
-            </div>
-          </div>
-
-          {/* Details Dashboard (8 cols on lg) */}
-          <div className="lg:col-span-8">
-            {WORK_EXPERIENCE.map((exp) => {
-              if (exp.id !== selectedExp) return null;
-              const ExpIcon = getExperienceIcon(exp.category);
+          {/* Company Selector Tab List */}
+          <div className="lg:col-span-4 flex flex-col gap-2 font-mono text-xs">
+            {PROFESSIONAL_EXPERIENCE.map((exp) => {
+              const isSelected = exp.id === selectedId;
               return (
-                <motion.div
+                <button
                   key={exp.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4 }}
-                  className="p-6 sm:p-8 rounded-2xl bg-slate-900/35 border border-slate-850 backdrop-blur-md shadow-2xl relative"
+                  onClick={() => setSelectedId(exp.id)}
+                  className={`w-full text-left p-4 rounded-lg border transition-all duration-200 ${
+                    isSelected
+                      ? "bg-neutral-900 border-neutral-600 text-white shadow-sm"
+                      : "bg-neutral-950/70 border-neutral-850 text-neutral-400 hover:text-neutral-200 hover:border-neutral-750"
+                  }`}
                 >
-                  {/* Decorative faint glow */}
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl pointer-events-none" />
-
-                  {/* Header Area */}
-                  <div className="border-b border-slate-800/80 pb-6 mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div>
-                      <span className="px-2.5 py-0.5 bg-blue-500/10 border border-blue-500/20 text-[10px] text-blue-400 font-bold rounded uppercase tracking-wider mb-2 inline-block">
-                        {exp.category}
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-semibold text-white tracking-tight">
+                      {exp.company}
+                    </span>
+                    {exp.isCurrent && (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded border border-neutral-700 bg-black text-white uppercase font-bold tracking-wider">
+                        Current
                       </span>
-                      <h3 className="text-xl sm:text-2xl font-extrabold text-white">
-                        {exp.role}
-                      </h3>
-                      <div className="text-blue-400 font-bold text-sm sm:text-base mt-1">
-                        {exp.company}
-                      </div>
-                    </div>
-
-                    {/* Metadata chips */}
-                    <div className="flex flex-wrap sm:flex-col items-start gap-2.5">
-                      <div className="flex items-center gap-1.5 text-xs text-slate-400 font-medium">
-                        <Calendar className="w-3.5 h-3.5 text-slate-500" />
-                        <span>{exp.period}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5 text-xs text-slate-400 font-medium">
-                        <MapPin className="w-3.5 h-3.5 text-slate-500" />
-                        <span>{exp.location}</span>
-                      </div>
-                    </div>
+                    )}
                   </div>
-
-                  {/* Achievements and bullets */}
-                  <div className="space-y-4 mb-8">
-                    <h4 className="text-xs font-bold text-slate-450 uppercase tracking-widest">
-                      Primary Responsibilities & Outcomes:
-                    </h4>
-                    {exp.description.map((bullet, idx) => (
-                      <div key={idx} className="flex gap-3 items-start">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
-                        <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-light">
-                          {bullet}
-                        </p>
-                      </div>
-                    ))}
+                  <div className="text-[11px] text-neutral-400 truncate mb-1">
+                    {exp.role}
                   </div>
-
-                  {/* Tech stack badges used in this role */}
-                  {exp.technologies && (
-                    <div className="pt-6 border-t border-slate-850/80">
-                      <h4 className="text-xs font-bold text-slate-450 uppercase tracking-widest mb-3.5 flex items-center gap-1.5">
-                        <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-                        <span>Tools & Core Competence Applied:</span>
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {exp.technologies.map((tech, idx) => (
-                          <span
-                            key={idx}
-                            className="px-3 py-1 bg-slate-950 border border-slate-800 rounded-lg text-xs font-mono text-slate-300 group hover:text-white hover:border-slate-700 duration-200"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                </motion.div>
+                  <div className="text-[10px] text-neutral-400">
+                    {exp.period}
+                  </div>
+                </button>
               );
             })}
           </div>
 
+          {/* Detailed Experience Display Panel */}
+          <div className="lg:col-span-8 p-6 sm:p-8 rounded-lg border border-neutral-800 bg-neutral-950/80">
+            <div className="border-b border-neutral-800 pb-5 mb-6">
+              <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1.5">
+                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  {selectedExp.role}
+                </h3>
+                <span className="font-mono text-xs text-neutral-400 px-2.5 py-1 rounded bg-neutral-900 border border-neutral-800">
+                  {selectedExp.period}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-neutral-400">
+                <span className="text-neutral-200 font-semibold">{selectedExp.company}</span>
+                <span className="text-neutral-700">•</span>
+                <span className="inline-flex items-center gap-1">
+                  <MapPin className="w-3.5 h-3.5 text-neutral-500" />
+                  <span>{selectedExp.location}</span>
+                </span>
+              </div>
+            </div>
+
+            {/* Resume Bullet Points */}
+            <div className="space-y-4 mb-6">
+              {selectedExp.points.map((point, idx) => (
+                <div key={idx} className="flex items-start gap-3 text-sm text-neutral-300 leading-relaxed">
+                  <span className="font-mono text-neutral-500 mt-1 select-none text-xs">—</span>
+                  <p className="flex-1">{point}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Verified Indicator */}
+            <div className="pt-4 border-t border-neutral-850 flex items-center justify-between text-[11px] font-mono text-neutral-400">
+              <span>Aligned directly with official resume</span>
+              <span className="text-neutral-400 uppercase">Verified Professional Milestone</span>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Timeline Summary Table for Quick Skimming */}
+        <div className="mt-12 p-6 rounded-lg border border-neutral-850 bg-neutral-950/40">
+          <div className="font-mono text-xs text-neutral-400 uppercase tracking-wider mb-4">
+            Chronological Career Summary
+          </div>
+          <div className="divide-y divide-neutral-850 font-mono text-xs">
+            {PROFESSIONAL_EXPERIENCE.map((exp) => (
+              <div
+                key={exp.id}
+                onClick={() => setSelectedId(exp.id)}
+                className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 cursor-pointer hover:bg-neutral-900/50 px-2 rounded transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-white font-medium">{exp.company}</span>
+                  <span className="text-neutral-600 hidden sm:inline">|</span>
+                  <span className="text-neutral-400 font-sans">{exp.role}</span>
+                </div>
+                <div className="text-neutral-400 text-[11px] shrink-0">
+                  {exp.period}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
       </div>

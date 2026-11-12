@@ -1,220 +1,160 @@
-
+"use client";
 
 import React, { useState } from "react";
-import { motion } from "motion/react";
-import { ArrowRight, Download, Terminal, Copy, Check, Code } from "lucide-react";
+import { ArrowDown, Download, ExternalLink, Github, Linkedin, Mail, MapPin, Phone, Copy, Check } from "lucide-react";
 import { PERSONAL_INFO } from "../app/data";
 
 interface HomeProps {
   onDownloadResume: () => void;
+  onOpenResumeModal: () => void;
 }
 
-export default function Home({ onDownloadResume }: HomeProps) {
-  const [copied, setCopied] = useState(false);
-  const [activeCodeTab, setActiveCodeTab] = useState<"profile" | "experience" | "passion">("profile");
+export default function Home({ onDownloadResume, onOpenResumeModal }: HomeProps) {
+  const [copiedEmail, setCopiedEmail] = useState(false);
 
-  const codeSnippets = {
-    profile: `const developer = {
-  name: "${PERSONAL_INFO.name}",
-  role: "Full-Stack Web Developer",
-  university: "Adama Science & Technology University (ASTU)",
-  graduation: "June 2026",
-  skills: [
-    "Next.js", "React.js", "Node.js", "TypeScript", 
-    "Java Spring Boot", "Django", "PostgreSQL", "Docker"
-  ],
-  isEliteBootcampWinner: true,
-  currentStatus: "Ready for hire!"
-};`,
-    experience: `const experience = [
-  {
-    company: "INSA",
-    role: "Backend Architect Intern",
-    tech: ["Java Spring Boot", "gRPC", "Microservices"]
-  },
-  {
-    company: "Ozone Technology",
-    role: "Frontend Developer (Falcon)",
-    tech: ["Next.js", "Tailwind CSS", "SSR Builder"]
-  }
-];`,
-    passion: `function passion() {
-  return "Engineering secure, cryptographic, high-performance " +
-         "web portals that solve real public and corporate challenges.";
-}`
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(PERSONAL_INFO.email);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(codeSnippets[activeCodeTab]);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
-    <section 
-      id="home" 
-      className="relative min-h-screen pt-32 pb-24 flex flex-col justify-center overflow-hidden"
-    >
-      {/* Background Orbs with radial glowing gradient (from the screenshot design) */}
-      <div className="absolute top-1/4 left-1/10 w-96 h-96 rounded-full bg-blue-600/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/10 w-96 h-96 rounded-full bg-indigo-500/10 blur-[130px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center">
+    <section id="home" className="pt-32 pb-20 border-b border-neutral-900">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Availability Badge */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest shadow-inner shadow-blue-500/5 mb-8"
-        >
-          <span className="w-2 h-2 rounded-full bg-blue-400 animate-ping" />
-          <span>Available for New Projects</span>
-        </motion.div>
+        {/* Top Status & Meta */}
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-800 bg-neutral-950 font-mono text-xs text-neutral-300">
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+            <span>Open for Senior Engineering Roles & High-Impact Contracts</span>
+          </div>
 
-        {/* Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6"
-        >
-          Hi, I'm <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-400 to-indigo-400 drop-shadow-[0_0_15px_rgba(59,130,246,0.2)]">{PERSONAL_INFO.name}</span>
-        </motion.h1>
+          <div className="flex items-center gap-4 text-xs font-mono text-neutral-400">
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-neutral-400" />
+              <span>{PERSONAL_INFO.location}</span>
+            </span>
+            <span className="hidden sm:inline text-neutral-700">•</span>
+            <span className="hidden sm:inline text-neutral-400">Ubuntu Linux Daily Driver</span>
+          </div>
+        </div>
 
-        {/* Roles Details with separator bars */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.15 }}
-          className="text-md sm:text-xl text-slate-400 max-w-3xl mx-auto font-medium leading-relaxed mb-10 px-4"
-        >
-          Software Engineer <span className="text-blue-500/60 mx-1 sm:mx-2">||</span> Full-Stack Web Developer <span className="text-blue-500/60 mx-1 sm:mx-2">||</span> Systems Architect <span className="text-blue-500/60 mx-1 sm:mx-2">||</span> Advanced Next.js Developer
-        </motion.p>
+        {/* Hero Title & Subtitle */}
+        <div className="space-y-4 mb-8">
+          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white uppercase font-sans">
+            {PERSONAL_INFO.name}
+          </h1>
+          <p className="font-mono text-lg sm:text-xl text-neutral-300 font-medium tracking-tight">
+            Senior Full-Stack Software Engineer
+          </p>
+          <p className="text-base sm:text-lg text-neutral-400 max-w-3xl leading-relaxed">
+            Architecting scalable web platforms, distributed microservices, and high-throughput REST/gRPC APIs in TypeScript, Java, and Python. Proven track record collaborating directly with distributed engineering teams across agile sprints, code reviews, and lifecycle debugging.
+          </p>
+        </div>
 
-        {/* Primary and secondary CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
-        >
-          <button
-            onClick={() => scrollToSection("projects")}
-            className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-sky-500 hover:from-blue-500 hover:to-sky-400 text-white font-bold rounded-full shadow-lg shadow-blue-600/30 hover:shadow-blue-500/60 flex items-center justify-center gap-2 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer"
+        {/* Contact Links & Quick Actions */}
+        <div className="flex flex-wrap items-center gap-3 pt-2 mb-12">
+          <a
+            href={PERSONAL_INFO.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3.5 py-2 rounded border border-neutral-800 hover:border-neutral-500 bg-neutral-950 text-neutral-300 hover:text-white font-mono text-xs transition-colors flex items-center gap-2"
           >
-            <span>View My Work</span>
-            <ArrowRight className="w-5 h-5" />
+            <Github className="w-4 h-4" />
+            <span>github/{PERSONAL_INFO.githubHandle}</span>
+            <ExternalLink className="w-3 h-3 text-neutral-500" />
+          </a>
+
+          <a
+            href={PERSONAL_INFO.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3.5 py-2 rounded border border-neutral-800 hover:border-neutral-500 bg-neutral-950 text-neutral-300 hover:text-white font-mono text-xs transition-colors flex items-center gap-2"
+          >
+            <Linkedin className="w-4 h-4" />
+            <span>linkedin/firomsa-hika</span>
+            <ExternalLink className="w-3 h-3 text-neutral-500" />
+          </a>
+
+          <button
+            onClick={handleCopyEmail}
+            className="px-3.5 py-2 rounded border border-neutral-800 hover:border-neutral-500 bg-neutral-950 text-neutral-300 hover:text-white font-mono text-xs transition-colors flex items-center gap-2"
+            title="Click to copy email address"
+          >
+            <Mail className="w-4 h-4" />
+            <span>{PERSONAL_INFO.email}</span>
+            {copiedEmail ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3 h-3 text-neutral-500" />}
+          </button>
+
+          <a
+            href={`tel:${PERSONAL_INFO.phone.replace(/\s+/g, "")}`}
+            className="px-3.5 py-2 rounded border border-neutral-800 hover:border-neutral-500 bg-neutral-950 text-neutral-300 hover:text-white font-mono text-xs transition-colors flex items-center gap-2"
+          >
+            <Phone className="w-4 h-4" />
+            <span>{PERSONAL_INFO.phone}</span>
+          </a>
+        </div>
+
+        {/* Primary CTA Row */}
+        <div className="flex flex-wrap items-center gap-3 pt-2 pb-6 border-t border-neutral-900">
+          <button
+            onClick={() => scrollTo("experience")}
+            className="px-5 py-2.5 rounded bg-white hover:bg-neutral-200 text-black font-mono text-xs font-semibold transition-colors flex items-center gap-2"
+          >
+            <span>Explore Experience</span>
+            <ArrowDown className="w-3.5 h-3.5" />
+          </button>
+
+          <button
+            onClick={() => scrollTo("projects")}
+            className="px-5 py-2.5 rounded border border-neutral-700 hover:border-neutral-400 bg-neutral-950 text-neutral-200 hover:text-white font-mono text-xs transition-colors"
+          >
+            Featured Projects
           </button>
 
           <button
             onClick={onDownloadResume}
-            className="w-full sm:w-auto px-8 py-3.5 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-800/80 text-slate-200 font-bold rounded-full flex items-center justify-center gap-2 transition-all duration-300 transform hover:-translate-y-0.5"
+            className="px-5 py-2.5 rounded border border-neutral-700 hover:border-neutral-400 bg-neutral-950 text-neutral-200 hover:text-white font-mono text-xs transition-colors flex items-center gap-2"
           >
-            <Download className="w-5 h-5 text-blue-400" />
-            <span>Download CV</span>
+            <Download className="w-3.5 h-3.5" />
+            <span>Download Resume (PDF)</span>
           </button>
-        </motion.div>
+        </div>
 
-        {/* Code Block Container (From user request stylesheet image) */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.45 }}
-          className="max-w-3xl mx-auto text-left"
-        >
-          <div className="relative rounded-2xl bg-slate-950/90 border border-slate-900 shadow-2xl p-0 overflow-hidden shadow-blue-500/5">
-            {/* Window Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-900 bg-slate-900/40">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-red-500" />
-                <span className="w-3 h-3 rounded-full bg-yellow-500" />
-                <span className="w-3 h-3 rounded-full bg-green-500" />
-                <span className="flex items-center gap-1.5 ml-4 text-xs font-mono text-slate-500">
-                  <Terminal className="w-3.5 h-3.5" />
-                  firomsa-hika.js
-                </span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                {/* Custom Tab Toggles in Coder Container */}
-                <div className="flex bg-slate-900/80 border border-slate-800 rounded-lg p-0.5 mr-2">
-                  <button 
-                    onClick={() => setActiveCodeTab("profile")}
-                    className={`px-2.5 py-1 text-[10px] font-mono rounded duration-200 ${activeCodeTab === "profile" ? "bg-blue-600/20 text-blue-400 border border-blue-500/20" : "text-slate-500 hover:text-slate-300"}`}
-                  >
-                    profile.json
-                  </button>
-                  <button 
-                    onClick={() => setActiveCodeTab("experience")}
-                    className={`px-2.5 py-1 text-[10px] font-mono rounded duration-200 ${activeCodeTab === "experience" ? "bg-blue-600/20 text-blue-400 border border-blue-500/20" : "text-slate-500 hover:text-slate-300"}`}
-                  >
-                    experience.js
-                  </button>
-                  <button 
-                    onClick={() => setActiveCodeTab("passion")}
-                    className={`px-2.5 py-1 text-[10px] font-mono rounded duration-200 ${activeCodeTab === "passion" ? "bg-blue-600/20 text-blue-400 border border-blue-500/20" : "text-slate-500 hover:text-slate-300"}`}
-                  >
-                    passion()
-                  </button>
-                </div>
+        {/* Software Engineering Environment & Summary Box */}
+        <div className="mt-8 p-6 rounded-lg border border-neutral-800 bg-neutral-950/70 font-mono">
+          <div className="flex items-center justify-between border-b border-neutral-800/80 pb-3 mb-4 text-xs text-neutral-400">
+            <span className="text-white font-semibold flex items-center gap-2">
+              <span className="w-2 h-2 rounded-sm bg-neutral-400" />
+              SYSTEM OVERVIEW & CREDENTIALS
+            </span>
+            <span className="text-[11px] text-neutral-400">C1/C2 Fluent English • ASTU CSE Grad 2026</span>
+          </div>
 
-                {/* Copy Button */}
-                <button
-                  onClick={handleCopy}
-                  className="p-1 px-2.5 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-white rounded-lg text-xs flex items-center gap-1.5 duration-200"
-                  title="Copy Code"
-                >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span className="font-mono text-[10px]">{copied ? "Copied!" : "Copy"}</span>
-                </button>
-              </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+            <div className="space-y-1">
+              <div className="text-neutral-400 text-[11px] uppercase tracking-wider">Primary Stack</div>
+              <div className="text-neutral-200 font-medium">TypeScript, Java 17+, Python</div>
             </div>
-
-            {/* Editor Text Workspace */}
-            <div className="p-5 font-mono text-xs sm:text-sm text-slate-300 leading-relaxed overflow-x-auto min-h-[220px]">
-              <pre className="whitespace-pre">
-                <code>
-                  {codeSnippets[activeCodeTab].split("\n").map((line, i) => {
-                    // Do rudimentary manual syntax highlighting to look incredibly high fidelity
-                    let highlighted = line;
-                    
-                    // Strings
-                    highlighted = highlighted.replace(/"([^"]*)"/g, '<span class="text-emerald-400">"$1"</span>');
-                    // Keywords
-                    highlighted = highlighted.replace(/\b(const|let|var|function|return|true|false)\b/g, '<span class="text-blue-400 font-bold">$1</span>');
-                    // Numbers
-                    highlighted = highlighted.replace(/\b(\d+)\b/g, '<span class="text-amber-400">$1</span>');
-
-                    return (
-                      <div key={i} className="flex hover:bg-slate-900/30 px-1 duration-150">
-                        <span className="text-slate-600 select-none mr-6 text-right w-5 text-[11px] font-mono">{i + 1}</span>
-                        <span dangerouslySetInnerHTML={{ __html: highlighted }} />
-                      </div>
-                    );
-                  })}
-                </code>
-              </pre>
+            <div className="space-y-1">
+              <div className="text-neutral-400 text-[11px] uppercase tracking-wider">Architecture</div>
+              <div className="text-neutral-200 font-medium">Microservices, gRPC, REST</div>
             </div>
-            
-            {/* Bottom Status bar */}
-            <div className="flex items-center justify-between px-5 py-1.5 border-t border-slate-900 bg-slate-900/20 text-[10px] font-mono text-slate-600">
-              <div className="flex items-center gap-3">
-                <span>UTF-8</span>
-                <span>JavaScript</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <span>Ln {codeSnippets[activeCodeTab].split("\n").length}, Col 1</span>
-              </div>
+            <div className="space-y-1">
+              <div className="text-neutral-400 text-[11px] uppercase tracking-wider">AI Workflows</div>
+              <div className="text-neutral-200 font-medium">Cursor, Antigravity, Claude Code</div>
+            </div>
+            <div className="space-y-1">
+              <div className="text-neutral-400 text-[11px] uppercase tracking-wider">Infrastructure</div>
+              <div className="text-neutral-200 font-medium">Docker, Linux, CI/CD, AWS</div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
       </div>
     </section>

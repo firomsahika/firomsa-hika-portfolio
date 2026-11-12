@@ -1,57 +1,71 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+"use client";
 
 import React, { useRef, useState } from "react";
-import { motion } from "motion/react";
-import { X, Printer, Copy, FileText, Check, Phone, Mail, MapPin, Github, Linkedin, Calendar, GraduationCap } from "lucide-react";
-import { PERSONAL_INFO, WORK_EXPERIENCE, PROJECTS, EDUCATION, LEADERSHIP } from "../app/data";
+import { X, Printer, Copy, Download, Check, ExternalLink } from "lucide-react";
+import {
+  PERSONAL_INFO,
+  CORE_TECHNICAL_SKILLS,
+  PROFESSIONAL_EXPERIENCE,
+  FEATURED_PROJECTS,
+  EDUCATION,
+  LEADERSHIP,
+} from "../app/data";
 
 interface ResumeModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onDownloadResume: () => void;
 }
 
-export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
+export default function ResumeModal({ isOpen, onClose, onDownloadResume }: ResumeModalProps) {
   const [copied, setCopied] = useState(false);
   const printableAreaRef = useRef<HTMLDivElement>(null);
 
   if (!isOpen) return null;
 
   const handleCopyRawText = () => {
-    // Generate clean text representation of the resume
     const textResume = `
-FIROMSA HIKA - FULLSTACK SOFTWARE ENGINEER
-Phone: ${PERSONAL_INFO.phone} | Email: ${PERSONAL_INFO.email} | Location: ${PERSONAL_INFO.location}
-GitHub: ${PERSONAL_INFO.github} | LinkedIn: ${PERSONAL_INFO.linkedin}
+FIROMSA HIKA TELILA
+Senior Full-Stack Software Engineer
+Addis Ababa, Ethiopia | ${PERSONAL_INFO.phone}
+Gmail: ${PERSONAL_INFO.email} |
+Github: ${PERSONAL_INFO.github}
+Linkedin: ${PERSONAL_INFO.linkedin}
 
-SUMMARY
+PROFESSIONAL SUMMARY
 ${PERSONAL_INFO.summary}
 
+CORE TECHNICAL SKILLS
+${CORE_TECHNICAL_SKILLS.map((cat) => `● ${cat.category}: ${cat.skills.join(", ")}`).join("\n")}
+
+PROFESSIONAL EXPERIENCE
+${PROFESSIONAL_EXPERIENCE.map(
+  (exp) => `
+${exp.company} | ${exp.location}
+${exp.role} | ${exp.period}
+${exp.points.map((pt) => `● ${pt}`).join("\n")}
+`
+).join("\n")}
+
+FEATURED ENGINEERING PROJECTS
+${FEATURED_PROJECTS.map(
+  (p) => `
+${p.title} – ${p.subtitle} | ${p.displayUrl}
+Tech Stack: ${p.techStack.join(", ")}
+${p.points.map((pt) => `● ${pt}`).join("\n")}
+`
+).join("\n")}
+
 EDUCATION
-${EDUCATION.institution} - ${EDUCATION.period}
-${EDUCATION.degree}
-Key Achievements:
-${EDUCATION.achievements.join("\n")}
-Relevant Coursework:
-${EDUCATION.coursework.join(", ")}
+${EDUCATION.institution} | ${EDUCATION.location}
+${EDUCATION.degree} | ${EDUCATION.graduation}
+● Cumulative GPA: ${EDUCATION.gpa}
+● Relevant Coursework: ${EDUCATION.coursework.join(", ")}
 
-INDUSTRY EXPERIENCE
-${WORK_EXPERIENCE.map(exp => `
-${exp.role} | ${exp.company} | ${exp.period}
-${exp.description.map(desc => `- ${desc}`).join("\n")}
-`).join("\n")}
-
-PROJECTS
-${PROJECTS.map(proj => `
-${proj.title} - ${proj.role} (${proj.url || "Repository"})
-${proj.highlights.map(h => `- ${h}`).join("\n")}
-`).join("\n")}
-
-LEADERSHIP
-${LEADERSHIP.role} | ${LEADERSHIP.organization} (${LEADERSHIP.period})
-${LEADERSHIP.description.map(d => `- ${d}`).join("\n")}
+LEADERSHIP & COMMUNITY ENGAGEMENT
+${LEADERSHIP.organization} | ${LEADERSHIP.location}
+${LEADERSHIP.role} | ${LEADERSHIP.period}
+${LEADERSHIP.points.map((pt) => `● ${pt}`).join("\n")}
     `.trim();
 
     navigator.clipboard.writeText(textResume);
@@ -60,247 +74,209 @@ ${LEADERSHIP.description.map(d => `- ${d}`).join("\n")}
   };
 
   const handlePrint = () => {
-    const printContent = printableAreaRef.current?.innerHTML;
-    if (!printContent) return;
-
-    // Create a temporary hidden iframe on the same main document
-    const iframe = document.createElement("iframe");
-    iframe.style.position = "fixed";
-    iframe.style.right = "0";
-    iframe.style.bottom = "0";
-    iframe.style.width = "0";
-    iframe.style.height = "0";
-    iframe.style.border = "0";
-    document.body.appendChild(iframe);
-
-    const doc = iframe.contentWindow?.document || iframe.contentDocument;
-    if (doc) {
-      doc.write(`
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <title>Resume - Firomsa Hika</title>
-            <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-            <style>
-              body { 
-                font-family: 'Inter', system-ui, sans-serif; 
-                padding: 40px; 
-                color: #1f2937; 
-                line-height: 1.5; 
-                background: white;
-              }
-              @media print {
-                body { padding: 0 !important; color: #000 !important; }
-              }
-            </style>
-          </head>
-          <body>
-            <div class="max-w-3xl mx-auto">
-              ${printContent}
-            </div>
-            <script>
-              window.onload = function() {
-                setTimeout(function() {
-                  window.focus();
-                  window.print();
-                }, 250);
-              };
-            </script>
-          </body>
-        </html>
-      `);
-      doc.close();
-    }
-
-    // Safely remove the hidden element after the print dialog is triggered
-    setTimeout(() => {
-      if (document.body.contains(iframe)) {
-        document.body.removeChild(iframe);
-      }
-    }, 2000);
+    window.print();
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
-      
-      {/* Modal Wrapper Container */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.95 }}
-        className="w-full max-w-4xl max-h-[90vh] bg-slate-900 border border-slate-800 rounded-2xl flex flex-col overflow-hidden shadow-2xl shadow-blue-500/5 select-text"
-      >
-        {/* Sticky Controller Header bar */}
-        <div className="flex items-center justify-between px-6 py-4 bg-slate-900/40 border-b border-slate-800">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 bg-blue-600/10 text-blue-400 rounded-lg">
-              <FileText className="w-5 h-5" />
-            </div>
-            <div>
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider">Firomsa Hika CV Portal</h3>
-              <p className="text-[10px] text-slate-500 font-mono">Format: High Fidelity Professional Resume</p>
-            </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-sm overflow-y-auto">
+      <div className="relative w-full max-w-4xl bg-neutral-950 border border-neutral-800 rounded-lg shadow-2xl my-8 flex flex-col max-h-[90vh]">
+        
+        {/* Modal Top Toolbar */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-800 bg-black/50 font-mono text-xs">
+          <div className="text-white font-semibold flex items-center gap-2">
+            <span>OFFICIAL RESUME VIEW</span>
+            <span className="text-neutral-500">•</span>
+            <span className="text-neutral-400">Firomsa_Hika_Telila.pdf</span>
           </div>
 
-          {/* Action widgets */}
           <div className="flex items-center gap-2">
-            
-            {/* Copy raw text button */}
             <button
               onClick={handleCopyRawText}
-              className="p-2 bg-slate-950 border border-slate-850 hover:bg-slate-850 text-slate-400 hover:text-white rounded-lg text-xs flex items-center gap-1.5 duration-200"
-              title="Copy resume text to clipboard"
+              className="px-2.5 py-1.5 rounded border border-neutral-800 hover:border-neutral-600 bg-neutral-900 text-neutral-300 hover:text-white transition-colors flex items-center gap-1.5"
+              title="Copy plain text"
             >
-              {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-              <span className="font-mono text-[10px] hidden sm:inline">{copied ? "Copied" : "Copy Raw Text"}</span>
+              {copied ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
+              <span className="hidden sm:inline">Copy Text</span>
             </button>
 
-            {/* Print button */}
             <button
               onClick={handlePrint}
-              className="p-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs flex items-center gap-1.5 duration-200"
-              title="Print standard A4 copy"
+              className="px-2.5 py-1.5 rounded border border-neutral-800 hover:border-neutral-600 bg-neutral-900 text-neutral-300 hover:text-white transition-colors flex items-center gap-1.5"
+              title="Print document"
             >
-              <Printer className="w-4 h-4" />
-              <span className="font-sans font-bold text-[10px] hidden sm:inline">Print CV</span>
+              <Printer className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Print</span>
             </button>
 
-            {/* Separator */}
-            <span className="w-px h-6 bg-slate-800 mx-1" />
+            <button
+              onClick={onDownloadResume}
+              className="px-2.5 py-1.5 rounded bg-white hover:bg-neutral-200 text-black font-semibold transition-colors flex items-center gap-1.5"
+              title="Download PDF"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Download PDF</span>
+            </button>
 
-            {/* Close button */}
             <button
               onClick={onClose}
-              className="p-2 hover:bg-slate-850 text-slate-400 hover:text-white rounded-lg duration-250"
-              aria-label="Close modal"
+              className="p-1.5 rounded border border-neutral-800 hover:border-neutral-600 text-neutral-400 hover:text-white transition-colors ml-2"
+              aria-label="Close Modal"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        {/* Scrollable Printable CV Shell */}
-        <div className="flex-grow p-6 sm:p-10 overflow-y-auto bg-white text-slate-900 leading-normal select-text">
-          <div ref={printableAreaRef} className="max-w-3xl mx-auto space-y-6 text-slate-800 text-xs sm:text-sm">
-            
-            {/* CV Identity Head */}
-            <div className="border-b-2 border-slate-900 pb-5 text-center">
-              <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">{PERSONAL_INFO.name}</h1>
-              <p className="text-sm font-semibold text-blue-700 uppercase tracking-widest mt-1">Full-Stack Software Engineer</p>
-              
-              {/* Context bar with icons */}
-              <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] text-slate-600 font-medium mt-3.5">
-                <span className="flex items-center gap-1"><Phone className="w-3.5 h-3.5 text-slate-500" /> {PERSONAL_INFO.phone}</span>
-                <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-slate-500" /> {PERSONAL_INFO.email}</span>
-                <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-slate-500" /> {PERSONAL_INFO.location}</span>
-                <span className="flex items-center gap-1"><Github className="w-3.5 h-3.5 text-slate-500" /> github.com/firomsa</span>
-              </div>
+        {/* Scrollable Document Container */}
+        <div ref={printableAreaRef} className="overflow-y-auto p-6 sm:p-10 space-y-8 bg-neutral-950 text-neutral-200 font-sans text-xs sm:text-sm">
+          
+          {/* Document Header */}
+          <div className="border-b border-neutral-800 pb-6 text-center sm:text-left">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide uppercase font-sans">
+              {PERSONAL_INFO.name}
+            </h1>
+            <p className="text-sm font-semibold text-neutral-300 mt-1 font-mono">
+              {PERSONAL_INFO.title}
+            </p>
+            <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-neutral-400">
+              <span>{PERSONAL_INFO.location}</span>
+              <span>|</span>
+              <span>{PERSONAL_INFO.phone}</span>
+              <span>|</span>
+              <span>Gmail: {PERSONAL_INFO.email}</span>
             </div>
-
-            {/* Brief Executive Summary */}
-            <div>
-              <h2 className="text-xs font-bold text-slate-900 uppercase tracking-widest border-b border-slate-350 pb-1 mb-2.5">Executive Summary</h2>
-              <p className="text-slate-700 leading-relaxed text-[11.5px] font-normal">{PERSONAL_INFO.summary}</p>
+            <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-neutral-400">
+              <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="hover:text-white underline">
+                Github: {PERSONAL_INFO.github}
+              </a>
+              <span>|</span>
+              <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-white underline">
+                Linkedin: {PERSONAL_INFO.linkedin}
+              </a>
             </div>
+          </div>
 
-            {/* Education block */}
-            <div>
-              <h2 className="text-xs font-bold text-slate-900 uppercase tracking-widest border-b border-slate-350 pb-1 mb-2.5">Education</h2>
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="font-extrabold text-slate-900">{EDUCATION.institution}</h3>
-                  <p className="text-[11px] text-blue-700 font-semibold">{EDUCATION.degree}</p>
-                </div>
-                <div className="text-right text-[11px] text-slate-600 font-bold">
-                  <span>{EDUCATION.period}</span>
-                  <p className="font-normal">Adama, Ethiopia</p>
-                </div>
-              </div>
-              <div className="mt-2.5 space-y-1 text-slate-700 text-[11px] pl-3 border-l border-slate-300">
-                <p><strong>Bootcamp Status:</strong> {EDUCATION.achievements[0]}</p>
-                <p><strong>Rigorous Coursework:</strong> {EDUCATION.coursework.join(", ")}</p>
-              </div>
-            </div>
+          {/* Section: Professional Summary */}
+          <div className="space-y-2">
+            <h2 className="font-mono text-xs font-bold text-white uppercase tracking-wider border-b border-neutral-850 pb-1">
+              PROFESSIONAL SUMMARY
+            </h2>
+            <p className="text-neutral-300 leading-relaxed text-xs sm:text-sm">
+              {PERSONAL_INFO.summary}
+            </p>
+          </div>
 
-            {/* Professional industry experience */}
-            <div>
-              <h2 className="text-xs font-bold text-slate-900 uppercase tracking-widest border-b border-slate-350 pb-1 mb-3">Industry Experience</h2>
-              <div className="space-y-4">
-                {WORK_EXPERIENCE.map((exp) => (
-                  <div key={exp.id}>
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h4 className="font-extrabold text-slate-900">{exp.role}</h4>
-                        <span className="text-[11px] font-bold text-blue-700 uppercase tracking-wider">{exp.company}</span>
-                      </div>
-                      <div className="text-right text-[11px] text-slate-600 font-bold">
-                        <span>{exp.period}</span>
-                        <p className="font-normal">{exp.location}</p>
-                      </div>
-                    </div>
-                    {/* Descriptions bullet details */}
-                    <ul className="list-disc pl-4.5 mt-2 space-y-1.5 text-slate-700 text-[11px]">
-                      {exp.description.map((bullet, bulkIdx) => (
-                        <li key={bulkIdx} className="leading-relaxed">{bullet}</li>
-                      ))}
-                    </ul>
+          {/* Section: Core Technical Skills */}
+          <div className="space-y-3">
+            <h2 className="font-mono text-xs font-bold text-white uppercase tracking-wider border-b border-neutral-850 pb-1">
+              CORE TECHNICAL SKILLS
+            </h2>
+            <ul className="space-y-2 font-sans text-xs sm:text-sm text-neutral-300">
+              {CORE_TECHNICAL_SKILLS.map((cat, idx) => (
+                <li key={idx} className="flex items-start gap-2">
+                  <span className="text-neutral-400 mt-1">●</span>
+                  <span>
+                    <strong className="text-white font-medium">{cat.category}:</strong> {cat.skills.join(", ")}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Section: Professional Experience */}
+          <div className="space-y-4">
+            <h2 className="font-mono text-xs font-bold text-white uppercase tracking-wider border-b border-neutral-850 pb-1">
+              PROFESSIONAL EXPERIENCE
+            </h2>
+            <div className="space-y-5">
+              {PROFESSIONAL_EXPERIENCE.map((exp) => (
+                <div key={exp.id} className="space-y-1.5">
+                  <div className="flex flex-wrap justify-between items-baseline font-mono text-xs">
+                    <span className="font-bold text-white">{exp.company} | {exp.location}</span>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Project profiles */}
-            <div>
-              <h2 className="text-xs font-bold text-slate-900 uppercase tracking-widest border-b border-slate-350 pb-1 mb-3">Projects Developed</h2>
-              <div className="space-y-4">
-                {PROJECTS.map((proj) => (
-                  <div key={proj.id}>
-                    <div className="flex items-start justify-between border-b border-dashed border-slate-200 pb-1">
-                      <div>
-                        <span className="font-extrabold text-slate-900">{proj.title}</span>
-                        <span className="text-[10px] bg-slate-100 text-slate-800 font-mono px-1.5 py-0.5 ml-2.5 rounded">{proj.role}</span>
-                      </div>
-                      <span className="text-[10px] text-blue-600 font-medium font-mono lowercase">{proj.url}</span>
-                    </div>
-                    <ul className="list-disc pl-4.5 mt-1.5 space-y-1 text-slate-700 text-[11px]">
-                      {proj.highlights.map((mil, milIdx) => (
-                        <li key={milIdx} className="leading-relaxed">{mil}</li>
-                      ))}
-                    </ul>
+                  <div className="flex flex-wrap justify-between items-baseline font-mono text-xs text-neutral-400">
+                    <span className="font-semibold text-neutral-200">{exp.role}</span>
+                    <span>{exp.period}</span>
                   </div>
-                ))}
+                  <ul className="space-y-1 mt-2 text-xs sm:text-sm text-neutral-300">
+                    {exp.points.map((pt, pIdx) => (
+                      <li key={pIdx} className="flex items-start gap-2">
+                        <span className="text-neutral-400 mt-1">●</span>
+                        <span className="leading-relaxed">{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Section: Featured Engineering Projects */}
+          <div className="space-y-4">
+            <h2 className="font-mono text-xs font-bold text-white uppercase tracking-wider border-b border-neutral-850 pb-1">
+              FEATURED ENGINEERING PROJECTS
+            </h2>
+            <div className="space-y-5">
+              {FEATURED_PROJECTS.map((proj) => (
+                <div key={proj.id} className="space-y-1.5">
+                  <div className="flex flex-wrap justify-between items-baseline font-mono text-xs">
+                    <span className="font-bold text-white">
+                      {proj.title} – {proj.subtitle} | {proj.displayUrl}
+                    </span>
+                  </div>
+                  <div className="font-mono text-xs text-neutral-400">
+                    <span className="font-semibold text-neutral-300">Tech Stack:</span> {proj.techStack.join(", ")}
+                  </div>
+                  <ul className="space-y-1 mt-2 text-xs sm:text-sm text-neutral-300">
+                    {proj.points.map((pt, pIdx) => (
+                      <li key={pIdx} className="flex items-start gap-2">
+                        <span className="text-neutral-400 mt-1">●</span>
+                        <span className="leading-relaxed">{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Section: Education */}
+          <div className="space-y-3">
+            <h2 className="font-mono text-xs font-bold text-white uppercase tracking-wider border-b border-neutral-850 pb-1">
+              EDUCATION
+            </h2>
+            <div className="space-y-1 font-mono text-xs">
+              <div className="font-bold text-white">{EDUCATION.institution} | {EDUCATION.location}</div>
+              <div className="text-neutral-300">{EDUCATION.degree} | {EDUCATION.graduation}</div>
+              <div className="text-neutral-300">● Cumulative GPA: {EDUCATION.gpa}</div>
+              <div className="text-neutral-400">
+                ● Relevant Coursework: {EDUCATION.coursework.join(", ")}
               </div>
             </div>
+          </div>
 
-            {/* Social organization leadership */}
-            <div>
-              <h2 className="text-xs font-bold text-slate-900 uppercase tracking-widest border-b border-slate-350 pb-1 mb-2.5">Leadership Work</h2>
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="font-extrabold text-slate-900">{LEADERSHIP.role}</h3>
-                  <p className="text-[11px] text-blue-700 font-semibold">{LEADERSHIP.organization}</p>
-                </div>
-                <span className="text-[11px] text-slate-600 font-bold">{LEADERSHIP.period}</span>
-              </div>
-              <ul className="list-disc pl-4.5 mt-2 space-y-1 text-slate-700 text-[11px]">
-                {LEADERSHIP.description.map((lead, leadIdx) => (
-                  <li key={leadIdx} className="leading-relaxed">{lead}</li>
+          {/* Section: Leadership & Community */}
+          <div className="space-y-3">
+            <h2 className="font-mono text-xs font-bold text-white uppercase tracking-wider border-b border-neutral-850 pb-1">
+              LEADERSHIP & COMMUNITY ENGAGEMENT
+            </h2>
+            <div className="space-y-1 font-mono text-xs">
+              <div className="font-bold text-white">{LEADERSHIP.organization} | {LEADERSHIP.location}</div>
+              <div className="text-neutral-300">{LEADERSHIP.role} | {LEADERSHIP.period}</div>
+              <ul className="space-y-1 mt-1 font-sans text-xs sm:text-sm text-neutral-300">
+                {LEADERSHIP.points.map((pt, idx) => (
+                  <li key={idx} className="flex items-start gap-2">
+                    <span className="text-neutral-400 mt-1">●</span>
+                    <span className="leading-relaxed">{pt}</span>
+                  </li>
                 ))}
               </ul>
             </div>
-
           </div>
+
         </div>
 
-        {/* Modal Bottom Footer bar */}
-        <div className="px-6 py-3.5 bg-slate-950 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-[10px] text-slate-500 gap-3">
-          <div className="flex items-center gap-1.5 font-mono">
-            <span>Author verified signature: Firomsa Hika</span>
-          </div>
-          <p className="font-sans text-right">Close CV to view online credentials anytime.</p>
-        </div>
-
-      </motion.div>
+      </div>
     </div>
   );
 }

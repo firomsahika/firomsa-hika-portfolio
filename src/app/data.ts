@@ -1,260 +1,282 @@
-
-
 import { ProjectType, ExperienceType, SkillCategoryType } from "../types";
 
 export const PERSONAL_INFO = {
-  name: "Firomsa Hika",
-  title: "Full-Stack Software Engineer",
-  subtitle: "Computer Science & Engineering Student | Graduating June 2026",
-  email: "firomsahika2022@gmail.com",
-  phone: "+251917627181",
+  name: "FIROMSA HIKA TELILA",
+  displayName: "Firomsa Hika Telila",
+  title: "Senior Full-Stack Software Engineer",
   location: "Addis Ababa, Ethiopia",
+  phone: "+251917627181",
+  email: "firomsahika2022@gmail.com",
   github: "https://github.com/firomsahika",
-  linkedin: "https://www.linkedin.com/in/firomsa-hika-553071366/", 
-  degree: "Bachelor of Computer Science and Engineering",
-  university: "Adama Science and Technology University (ASTU)",
-  graduation: "June 2026",
-  gpaBadge: "Top-Ranked Developer",
-  summary: "I am an elite, highly active Full-Stack Developer specializing in high-performance web applications using Javascript, Typescript, Python, Java, Next.js, React, Node.js, Express.js, Java Spring Boot, and Django. With a rich background in building cryptographic government platforms, collaborative enterprise construction tools, and distributed microservices architectures, I combine deep technical competence in backend engineering with highly stylized and motion-responsive frontend execution. As a CSE student leader at ASTU, I thrive in fast-paced software development environments that demand engineering excellence, clean documentation, and robust design."
+  githubHandle: "firomsahika",
+  linkedin: "https://www.linkedin.com/in/firomsa-hika-553071366/",
+  linkedinHandle: "firomsa-hika-553071366",
+  summary:
+    "Results-driven Full-Stack Software Engineer with a B.Sc. in Computer Science & Engineering (ASTU) and extensive experience architecting scalable web platforms, distributed microservices, and high-throughput REST/gRPC APIs in JavaScript/TypeScript, Java, and Python. Proven track record collaborating directly with distributed engineering teams across standups, sprint planning, code reviews, and lifecycle debugging. Highly proficient in AI-assisted engineering workflows—leveraging Cursor, Antigravity IDE, Claude Code, Gemini, and GitHub Copilot to accelerate code generation, automated testing, and architectural refactoring—paired with strong English communication (C1/C2) and deep daily Ubuntu Linux proficiency.",
 };
 
-export const SKILL_CATEGORIES: SkillCategoryType[] = [
+export const CORE_TECHNICAL_SKILLS: SkillCategoryType[] = [
   {
-    title: "Languages",
-    icon: "code",
-    glowColor: "shadow-blue-500/20 border-blue-500/30 text-blue-400",
-    skills: ["Python", "Java", "C++", "JavaScript", "TypeScript", "HTML5", "CSS3"]
+    category: "Languages & Frameworks",
+    skills: [
+      "TypeScript",
+      "JavaScript (ES6+)",
+      "Java 17+",
+      "Spring Boot",
+      "Node.js",
+      "Express.js",
+      "Python",
+      "FastAPI",
+      "Next.js",
+      "React.js",
+      "Tailwind CSS",
+    ],
   },
   {
-    title: "Frontend Stack",
-    icon: "layers",
-    glowColor: "shadow-cyan-500/20 border-cyan-500/30 text-cyan-400",
-    skills: ["React.js", "Next.js", "Tailwind CSS", "Redux Toolkit", "Zustand", "Shadcn UI", "Framer Motion", "Responsive Design"]
+    category: "AI-Assisted Development & Evaluation Tools",
+    skills: [
+      "Cursor",
+      "Google Antigravity IDE",
+      "Claude Code",
+      "Gemini",
+      "GitHub Copilot",
+      "LLM Code Evaluation & Rubric Auditing",
+      "AI Prompt Engineering",
+    ],
   },
   {
-    title: "Backend Core",
-    icon: "server",
-    glowColor: "shadow-violet-500/20 border-violet-500/30 text-violet-400",
-    skills: ["Node.js", "Express.js", "Java Spring Boot", "Django", "FastAPI", "gRPC Engine", "RESTful APIs", "JWT Security"]
+    category: "Backend, APIs & Architecture",
+    skills: [
+      "RESTful API Design",
+      "gRPC",
+      "Protocol Buffers",
+      "Microservices Architecture",
+      "Modular Monoliths",
+      "Data Structures",
+      "Algorithms",
+      "Object-Oriented Design Patterns",
+    ],
   },
   {
-    title: "Databases & ORMs",
-    icon: "database",
-    glowColor: "shadow-emerald-500/20 border-emerald-500/30 text-emerald-400",
-    skills: ["PostgreSQL", "MySQL", "SQLite3", "Prisma ORM", "Microservices DB-per-service"]
+    category: "Databases & ORMs",
+    skills: [
+      "PostgreSQL",
+      "MySQL",
+      "SQLite3",
+      "Prisma ORM",
+      "Spring Data JPA",
+      "Query Optimization & Indexing",
+    ],
   },
   {
-    title: "DevOps & Cloud",
-    icon: "cloud",
-    glowColor: "shadow-teal-500/20 border-teal-500/30 text-teal-400",
-    skills: ["Docker", "Git / GitHub Workflows", "CI/CD Pipelines", "AWS Infrastructure", "Vercel / Render Deployment"]
+    category: "DevOps, Cloud & Security",
+    skills: [
+      "Docker",
+      "Linux (Ubuntu daily driver, Bash scripting, terminal workflows)",
+      "CI/CD (GitHub Actions)",
+      "Git",
+      "JWT Authentication",
+      "Role-Based Access Control (RBAC)",
+      "AWS",
+      "Vercel",
+    ],
   },
   {
-    title: "Fields of Interest",
-    icon: "cpu",
-    glowColor: "shadow-pink-500/20 border-pink-500/30 text-pink-400",
-    skills: ["Microcomputing & Interface", "Computer & Network Security", "Artificial Intelligence", "Data Structures & Algorithms", "Microservices Architecture"]
-  }
+    category: "Quality Assurance & Agile Practices",
+    skills: [
+      "End-to-End (E2E) Testing",
+      "Jest",
+      "Root-Cause Debugging",
+      "Technical Specifications",
+      "Code Reviews",
+      "Agile/Scrum (Sprint Planning, Daily Standups)",
+    ],
+  },
 ];
 
-export const PROJECTS: ProjectType[] = [
+export const PROFESSIONAL_EXPERIENCE: ExperienceType[] = [
   {
-    id: "mijuu technologies",
-    title: "Mijuu Technologies",
-    role: "Frontend Developer",
-    url: "https://mijuu-technologies.vercel.app/",
-    githubUrl: "https://github.com/firomsahika/mijuu-technologies",
-    description: "Mijuu Technologies is a digital agency engineering high-performance websites, custom web and mobile applications, AI automation workflows, and modern UI/UX design.",    highlights: [
-     "Engineered and deployed a modern, high-converting agency platform showcasing Mijuu Technologies' software engineering, AI automation, and digital services.",
-    "Delivered a lightning-fast user experience using Next.js App Router and Tailwind CSS, featuring smooth animations and dark-mode aesthetic components.",
-    "Architected an intuitive, minimalist UI/UX layout optimized for client conversion, service discovery, and seamless contact workflows.",
-    "Utilized Next.js dynamic hydration and client-side performance optimizations to achieve instant page loads and responsive design across all devices."
+    id: "belight-soft",
+    company: "Belight Soft",
+    location: "Addis Ababa, Ethiopia (Remote)",
+    role: "QA Tester & Full-Stack Debugger Engineer",
+    period: "September 2026 – Present",
+    isCurrent: true,
+    points: [
+      "Direct end-to-end testing, quality assurance workflows, and systemic debugging across production full-stack web applications that is implemented to eliminate critical regressions and maximize system availability.",
+      "Conduct root-cause analysis across React/Next.js client code and backend APIs, streamlining error-handling, state synchronization, and API contract adherence.",
+      "Author repeatable test scenarios and detailed bug verification specifications while collaborating in remote agile sprints and technical discussions to deliver features on schedule.",
     ],
-    tags: ["Next.js", "React", "Typescript ", "Tailwind CSS"],
-    category: "frontend",
-    featured: true
   },
   {
-    id: "sersocaa",
-    title: "SERSOCAA Verification System",
-    role: "Full-Stack Developer",
-    url: "https://sersocaa.org/",
-    githubUrl: "https://github.com/firomsahika/Vocational-Qualification-Certification-Agency",
-    description: "Vocational Assessment Certificate Verification Platform engineered for the Southern Region Ethiopian government agency to address document forgery.",
-    highlights: [
-      "Built and deployed a highly secure, high-traffic platform verifying genuine governmental vocational assessments.",
-      "Eliminated verification and certificate forgery risks entirely by engineering an instantaneous cryptographic lookup mechanism.",
-      "Designed an intuitive, minimalist, dark-mode administrative dashboard tailored for administrative audits, secure registrations, and multi-tier role management.",
-      "Utilized Next.js dynamic hydration combined with Prisma and PostgreSQL to ensure millisecond record retrievals."
+    id: "afterquery",
+    company: "AfterQuery",
+    location: "Remote (Contract)",
+    role: "AI Prompt Engineer & Code Quality Evaluator",
+    period: "March 2026 – May 2026",
+    isCurrent: false,
+    points: [
+      "Evaluate, debug, and audit AI-generated software solutions across TypeScript, JavaScript, Python, and Java for algorithmic accuracy, edge-case resilience, clean code standards, and strict rubric compliance.",
+      "Design complex multi-step coding prompts and failure-mode test suites to benchmark large language model reasoning, code maintainability, and production readiness.",
+      "Deliver clear, structured technical critiques and refactored reference implementations in fluent English to improve model code-generation quality.",
     ],
-    tags: ["Next.js", "Prisma ORM", "PostgreSQL", "Cryptographic Hashing", "Tailwind CSS", "Admin Analytics"],
-    category: "fullstack",
-    featured: true
   },
-  {
-    id: "conwise",
-    title: "CONWISE Platform",
-    role: "Full-Stack & Project Coordinator",
-    url: "https://conwise.vercel.app",
-    githubUrl: "https://github.com/ConWise-System/ConWise",
-    description: "Modular corporate project management platform engineered specifically for engineering teams and heavy civil construction companies.",
-    highlights: [
-      "Architected and deployed a collaborative project planning system to handle live site updates and materials telemetry.",
-      "Designed a robust report-management system streamlining site journaling, task tracking, and interactive progress metrics.",
-      "Coordinated a 5-member team through agile milestones, maintaining Git branches, component design, and integration testing.",
-      "Engineered backend routes utilizing Node.js, Express.js, Prisma ORM, and clustered PostgreSQL instances."
-    ],
-    tags: ["MERN/N", "Next.js", "Express.js", "PostgreSQL", "Prisma", "Real-Time Tracking", "Team Leadership"],
-    category: "fullstack",
-    featured: true
-  },
-  {
-    id: "atisnama",
-    title: "ATIS NAMA Foundation Platform",
-    role: "Fullstack Developer",
-    url: "https://atis-nama-foundation.vercel.app",
-    githubUrl: "https://github.com/firomsahika/atis-nama-foundation",
-    description: "Public-facing community empowerment and social resource management platform for the ATIS NAMA charitable foundation.",
-    highlights: [
-      "Designed and deployed the foundation's official channel to manage support request pipelines and campaign logistics.",
-      "Automated and optimized administrative intake workflows, saving organizers and volunteers up to 40% in processing hours.",
-      "Constructed asset-light image delivery pipelines which load smoothly in limited-bandwidth mobile locations across Ethiopia.",
-      "Structured responsive styling frameworks utilizing Tailwind CSS for a seamless interface across a range of display densities."
-    ],
-    tags: ["Next.js", "Tailwind CSS", "Workflow Automation", "Asset Optimization", "Responsive Design"],
-    category: "frontend"
-  },
-  {
-    id: "focusastu",
-    title: "FOCUS ASTU Web Platform",
-    role: "Frontend Developer",
-    url: "https://focus-astu.vercel.app/",
-    githubUrl: "https://github.com/firomsahika/focus-astu-website",
-    description: "Official community hub and event booking engine for the Fellowship of Oromo Christian University Students at ASTU.",
-    highlights: [
-      "Constructed the high-fidelity public landing site and user registry portal from the ground up.",
-      "Automated custom member registrations and workshop bookings, eliminating physical record books and lowering operational workload by 40%.",
-      "Created highly animated components using Framer Motion and custom CSS cubic-bezier curves for an advanced interactive feel.",
-      "Designed a light-weight backend architecture that integrates cleanly with modern progressive frontend screens."
-    ],
-    tags: ["React", "Tailwind CSS", "Framer Motion", "Event Management", "ASTU Community"],
-    category: "frontend"
-  },
-  {
-    id: "roofapp",
-    title: "Roof App Platform",
-    role: "Frontend Developer",
-    url: "https://roof-app-clone-gvbr.onrender.com/",
-    githubUrl: "https://github.com/firomsa/roof-app",
-    description: "A high-fidelity modern digital portal for a professional roofing services company, optimized for customer inquiries, material estimations, and scheduling.",
-    highlights: [
-      "Engineered an interactive material selection and inquiry estimation tool to streamline roofing client workflows.",
-      "Implemented beautiful glassmorphism navigation menus and modern responsive bento-grids for residential and commercial catalogs.",
-      "Engineered performance-aware media delivery techniques ensuring instant page-load behaviors on mobile devices."
-    ],
-    tags: ["React", "Tailwind CSS", "Premium UI", "Estimation flow", "Media Loader"],
-    category: "frontend"
-  },
-  {
-    id: "interia",
-    title: "Interia Design Showcase",
-    role: "Frontend Developer",
-    url: "https://i-n-t-e-r-i-a-plfw.onrender.com/",
-    githubUrl: "https://github.com/firomsa/interia",
-    description: "An elegant, high-contrast, minimalist showcase portal for a premium interior design firm, styled with fluid transitions and modern visual spacing.",
-    highlights: [
-      "Developed an immersive spatial architectural gallery utilizing premium modern slide assemblies and interactive layout panels.",
-      "Crafted an exquisite dark-slate boutique layout featuring carefully balanced typography scales and bold design values.",
-      "Optimized high-resolution architectural photography rendering to load flawlessly across lower-bandwidth mobile networks."
-    ],
-    tags: ["Next.js", "Tailwind CSS", "Boutique Design", "Dynamic Slides", "Touch-Friendly"],
-    category: "frontend"
-  }
-];
-
-export const WORK_EXPERIENCE: ExperienceType[] = [
   {
     id: "insa",
     company: "Information Network Security Administration (INSA)",
-    role: "Backend Developer (Intern)",
     location: "Addis Ababa, Ethiopia",
+    role: "Backend Software Engineer Intern",
     period: "June 2025 – August 2025",
-    category: "internship",
-    description: [
-      "Developed an Intern Management System using Java Spring Boot microservices architecture, handling secure multi-user workloads (Interns, Mentors, and HR).",
-      "Designed and built REST APIs and high-performance gRPC channels for reliable service-to-service communication.",
-      "Engineered an activity aggregation engine gathering operational logs from active databases to serve live updates on dashboards.",
-      "Enforced rigid JWT role authorizations to build a certified safe and authorized application shell.",
-      "Leveraged Spring Cloud Gateway and Eureka Discovery Server for robust load balancing and service lookup."
+    isCurrent: false,
+    points: [
+      "Architected and implemented high-throughput backend microservices for an enterprise Intern Management System using Java 17, Spring Boot, and modular design patterns.",
+      "Engineered low-latency inter-service communication utilizing gRPC, Protocol Buffers, and RESTful APIs for real-time reporting modules, evaluation engines, and automated notifications.",
+      "Hardened service security by implementing stateless JWT authentication and granular Role-Based Access Control (RBAC) across distributed services.",
+      "Containerized microservices using Docker on Ubuntu Linux and built automated build, test, and deployment pipelines via GitHub Actions CI/CD workflows.",
     ],
-    technologies: ["Java", "Spring Boot", "Microservices", "gRPC", "Protobuf", "JWT Security", "PostgreSQL", "Spring Cloud"],
-    link: "https://github.com/INSA-Intern-Management-System/intern-management-system"
   },
   {
     id: "ozone",
     company: "Ozone Technology PLC",
-    role: "Frontend Developer (Certificate)",
-    location: "Adama, Ethiopia",
+    location: "Addis Ababa, Ethiopia",
+    role: "Frontend Web Engineer Intern",
     period: "July 2024 – September 2024",
-    category: "certificate",
-    description: [
-      "Built and deployed the 'Falcon' framework, a portfolio creator that enables digital specialists to spin up professional sites in seconds.",
-      "Accelerated content delivery speed by 25% by utilizing Next.js Server-Side Rendering (SSR) and asset preload priorities.",
-      "Strengthened SEO configurations through structured schema markups and micro-data layouts, amplifying web traffic by 30%.",
-      "Created customizable styling sub-systems utilizing Tailwind CSS token configurations for client theme switches.",
-      "Collaborated strictly within agile sprints, undergoing detailed visual peer reviews and automated testing."
+    isCurrent: false,
+    points: [
+      "Developed responsive, accessible web applications (Falcon) using Next.js, React, and Tailwind CSS, reducing client-side page load times by 25% across mobile and desktop browsers.",
+      "Implemented Server-Side Rendering (SSR) and automated metadata indexing, increasing organic search visibility and indexing performance by 30%.",
+      "Integrated asynchronous API payloads with strict TypeScript schemas, enforcing robust error boundary resilience across distributed endpoints.",
     ],
-    technologies: ["Next.js", "React.js", "Tailwind CSS", "SSR Core", "SEO Engineering", "Vite/Webpack Core"],
-    link: "https://www.github.com"
   },
   {
     id: "csec-bootcamp",
-    company: "CSEC-ASTU Advanced FullStack Bootcamp",
-    role: "Full-Stack Developer & Team Leader",
-    location: "ASTU, Ethiopia",
+    company: "CSEC-ASTU Advanced Software Development Bootcamp",
+    location: "Adama, Ethiopia",
+    role: "Engineering Team Lead",
     period: "March 2024 – May 2024",
-    category: "certificate",
-    description: [
-      "Assigned as Scrum Master and Team Leader, directing a 3-engineer cohort to build a custom commercial e-commerce solution.",
-      "Obtained 1st place in the final Bootcamp Demo Day, competing against top-tier coders and university seniors.",
-      "Configured secure routes using Express.js middleware, Prisma schema queries, and clustered PostgreSQL systems.",
-      "Guided GitHub workflows, branching protocols, pull request approvals, and UI layout reviews."
+    isCurrent: false,
+    points: [
+      "Led a 3-engineer agile team to design, build, and deploy a full-stack e-commerce platform using Next.js, Express.js, Prisma ORM, and PostgreSQL.",
+      "Established team coding standards, led pull request and architectural reviews, and enforced Git branching workflows.",
+      "Awarded 1st Place among all bootcamp cohorts for architectural design, clean code maintainability, and application performance.",
     ],
-    technologies: ["Next.js", "Express.js", "Shadcn UI", "Prisma ORM", "PostgreSQL", "Git Flow", "Agile Sprints"]
-  }
+  },
+];
+
+export const FEATURED_PROJECTS: ProjectType[] = [
+  {
+    id: "conwise",
+    title: "ConWise",
+    subtitle: "Modular Construction Project Management Platform",
+    url: "https://conwise.vercel.app",
+    displayUrl: "conwise.vercel.app",
+    techStack: [
+      "Next.js",
+      "Node.js",
+      "Express.js",
+      "Prisma ORM",
+      "PostgreSQL",
+      "Docker",
+      "GitHub Actions",
+    ],
+    points: [
+      "Architected and deployed an end-to-end modular project management and site-reporting platform solving operational fragmentation and audit logging for construction engineering teams.",
+      "Coordinated a 5-member engineering team through sprint planning, technical specification authoring, and modular component isolation.",
+      "Built normalized relational database schemas and automated CI/CD workflows, ensuring zero-downtime releases and low-latency API performance.",
+    ],
+  },
+  {
+    id: "sersocaa",
+    title: "SERSOCAA",
+    subtitle: "Regional Credential Verification Platform",
+    url: "https://sersocaa.org",
+    displayUrl: "sersocaa.org",
+    techStack: ["Next.js", "Prisma ORM", "PostgreSQL", "REST APIs"],
+    points: [
+      "Engineered and deployed a high-traffic digital verification platform for a regional government agency, preventing credential tampering through instant cryptographic lookup verification.",
+      "Built an administrative portal featuring immutable audit trails, role-based access governance, and responsive dashboards optimized for low-bandwidth environments.",
+    ],
+  },
+  {
+    id: "mijuu-technologies",
+    title: "Mijuu Technologies",
+    subtitle: "Digital Engineering & AI Automation Agency Platform",
+    url: "https://mijuu-technologies.vercel.app/",
+    displayUrl: "mijuu-technologies.vercel.app",
+    githubUrl: "https://github.com/firomsahika/mijuu-technologies",
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+    points: [
+      "Engineered and deployed a modern, high-performance agency platform showcasing software engineering, AI automation workflows, and digital solutions.",
+      "Built responsive, accessible interfaces leveraging Next.js App Router and Tailwind CSS with client-side performance optimizations ensuring instant page loads across mobile and desktop devices.",
+      "Architected intuitive navigation flows and service discovery pipelines optimized for client inquiry conversion and technical consultation intake.",
+    ],
+  },
+  {
+    id: "yerrytouch",
+    title: "YerryTouch",
+    subtitle: "Beauty & Wellness Service Booking Platform",
+    url: "https://yerrytouch.vercel.app/",
+    displayUrl: "yerrytouch.vercel.app",
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "REST APIs"],
+    points: [
+      "Engineered an end-to-end appointment scheduling and service discovery platform tailored for beauty and wellness professionals.",
+      "Designed interactive real-time availability calendars, automated booking workflows, and responsive client catalog interfaces.",
+      "Optimized front-end asset delivery and mobile-first responsiveness, ensuring frictionless booking flows across all devices.",
+    ],
+  },
+  {
+    id: "atisnama",
+    title: "ATIS NAMA Foundation",
+    subtitle: "Community & Humanitarian Resource Management Platform",
+    url: "https://atis-nama-foundation.vercel.app/",
+    displayUrl: "atis-nama-foundation.vercel.app",
+    githubUrl: "https://github.com/firomsahika/atis-nama-foundation",
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    points: [
+      "Architected and deployed the official digital hub for community support request pipelines, campaign logistics, and charitable initiatives.",
+      "Automated administrative intake workflows and volunteer coordination pipelines, reducing processing overhead by up to 40%.",
+      "Constructed lightweight, low-bandwidth optimized interfaces ensuring instant page loads across constrained regional mobile networks.",
+    ],
+  },
+  {
+    id: "focusastu",
+    title: "FOCUS ASTU Platform",
+    subtitle: "Student Fellowship & Event Registration Portal",
+    url: "https://focus-astu-website.vercel.app/",
+    displayUrl: "focus-astu-website.vercel.app",
+    githubUrl: "https://github.com/firomsahika/focus-astu-website",
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    points: [
+      "Constructed the official community platform and user registry portal from the ground up for 200+ active members.",
+      "Automated custom member registrations and workshop bookings, eliminating physical record books and lowering operational workload by 40%.",
+      "Delivered a responsive, high-contrast user interface with accessible components optimized for smooth performance across all browsers.",
+    ],
+  },
 ];
 
 export const EDUCATION = {
   institution: "Adama Science and Technology University (ASTU)",
-  degree: "Bachelor of Science in Computer Science and Engineering",
   location: "Adama, Ethiopia",
-  period: "Graduating June 2026",
-  achievements: [
-    "Top-ranked student in the five-week Advanced Web Development Bootcamp of CSEC-ASTU (Computer Science & Engineering Club).",
-    "Consistently recognized for leading complex software class projects and agile engineering assignments."
-  ],
+  degree: "Bachelor of Science in Computer Science and Engineering",
+  graduation: "Graduated: June 2026",
+  gpa: "3.34 / 4.00",
   coursework: [
-    "Algorithmic Problem Solving (C++)",
-    "Object-Oriented Programming (Java)",
-    "Calculus I & II",
-    "Web Development Fundamentals",
-    "Database Systems",
-    "Data Mining & Machine Learning",
     "Data Structures & Algorithms",
-    "Computer & Network Security",
-    "Artificial Intelligence Systems",
-    "Microcomputing & Hardware Interface"
-  ]
+    "Object-Oriented Programming (Java)",
+    "Software Engineering",
+    "Operating Systems & Networks",
+    "Database Systems",
+    "Computer Security",
+    "Research Methods & Scientific Writing",
+  ],
 };
 
 export const LEADERSHIP = {
-  organization: "FOCUS-ASTU Fellowship of Oromo Christian University Students",
+  organization: "FOCUS-ASTU Student Organization",
+  location: "Adama, Ethiopia",
   role: "Vice President",
   period: "2022 – 2024",
-  stats: "200+ Active Members Managed",
-  description: [
-    "Directed administrative, outreach, and collaborative efforts of a major student organization comprising over 200 physical members.",
-    "Spearheaded and scaled the 'AGAPE' community project, coordinating massive logistics to distribute food, basic resources, and companionship to the homeless, hospital environments, and regional elderly groups.",
-    "Designed structured peer mentoring loops, building high-performing volunteer core teams to accomplish community goals."
-  ]
+  points: [
+    "Directed organizational operations and cross-functional initiatives for 200+ members, leading technical training workshops, peer engineering mentorship, and community service projects.",
+  ],
 };
