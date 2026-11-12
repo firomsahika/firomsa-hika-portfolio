@@ -88,7 +88,7 @@ export default function Page() {
               Senior Full-Stack Software Engineer • Addis Ababa, Ethiopia
             </p>
             <p className="text-neutral-400 text-[10px]">
-              ASTU B.Sc. Computer Science & Engineering • Class of 2026
+              ASTU B.Sc. Computer Science & Engineering
             </p>
           </div>
 

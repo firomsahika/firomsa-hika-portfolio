@@ -38,15 +38,10 @@ export default function Education() {
                   <h3 className="text-xl font-bold text-white tracking-tight">
                     {EDUCATION.institution}
                   </h3>
-                  <span className="font-mono text-xs text-neutral-300 px-2.5 py-1 rounded bg-neutral-900 border border-neutral-800 font-semibold">
-                    GPA: {EDUCATION.gpa}
-                  </span>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-neutral-400">
                   <span className="text-neutral-200 font-medium">{EDUCATION.degree}</span>
-                  <span className="text-neutral-700">•</span>
-                  <span>{EDUCATION.graduation}</span>
                   <span className="text-neutral-700">•</span>
                   <span className="inline-flex items-center gap-1">
                     <MapPin className="w-3.5 h-3.5 text-neutral-500" />
@@ -75,7 +70,7 @@ export default function Education() {
 
             <div className="mt-8 pt-4 border-t border-neutral-850 flex items-center justify-between text-[11px] font-mono text-neutral-400">
               <span>B.Sc. in Computer Science & Engineering</span>
-              <span className="text-neutral-300">Class of 2026</span>
+              <span className="text-neutral-300">ASTU CSE Department</span>
             </div>
           </div>
 

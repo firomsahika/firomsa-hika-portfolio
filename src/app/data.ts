@@ -258,8 +258,6 @@ export const EDUCATION = {
   institution: "Adama Science and Technology University (ASTU)",
   location: "Adama, Ethiopia",
   degree: "Bachelor of Science in Computer Science and Engineering",
-  graduation: "Graduated: June 2026",
-  gpa: "3.34 / 4.00",
   coursework: [
     "Data Structures & Algorithms",
     "Object-Oriented Programming (Java)",

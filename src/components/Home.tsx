@@ -133,7 +133,7 @@ export default function Home({ onDownloadResume, onOpenResumeModal }: HomeProps)
               <span className="w-2 h-2 rounded-sm bg-neutral-400" />
               SYSTEM OVERVIEW & CREDENTIALS
             </span>
-            <span className="text-[11px] text-neutral-400">C1/C2 Fluent English • ASTU CSE Grad 2026</span>
+            <span className="text-[11px] text-neutral-400">C1/C2 Fluent English • ASTU Computer Science & Engineering</span>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">

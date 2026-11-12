@@ -58,8 +58,7 @@ ${p.points.map((pt) => `● ${pt}`).join("\n")}
 
 EDUCATION
 ${EDUCATION.institution} | ${EDUCATION.location}
-${EDUCATION.degree} | ${EDUCATION.graduation}
-● Cumulative GPA: ${EDUCATION.gpa}
+${EDUCATION.degree}
 ● Relevant Coursework: ${EDUCATION.coursework.join(", ")}
 
 LEADERSHIP & COMMUNITY ENGAGEMENT
@@ -247,8 +246,7 @@ ${LEADERSHIP.points.map((pt) => `● ${pt}`).join("\n")}
             </h2>
             <div className="space-y-1 font-mono text-xs">
               <div className="font-bold text-white">{EDUCATION.institution} | {EDUCATION.location}</div>
-              <div className="text-neutral-300">{EDUCATION.degree} | {EDUCATION.graduation}</div>
-              <div className="text-neutral-300">● Cumulative GPA: {EDUCATION.gpa}</div>
+              <div className="text-neutral-300">{EDUCATION.degree}</div>
               <div className="text-neutral-400">
                 ● Relevant Coursework: {EDUCATION.coursework.join(", ")}
               </div>
